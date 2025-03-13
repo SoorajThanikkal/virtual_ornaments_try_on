@@ -1,25 +1,26 @@
 # 💎 Virtual Ornaments Try-On
 
-Welcome to the **Virtual Ornaments Try-On** project! This application leverages augmented reality (AR) to allow users to virtually try on jewelry, enhancing the online shopping experience with real-time fittings. ✨💍
+Welcome to the **Virtual Ornaments Try-On** project! This application allows users to upload their images and virtually try on jewelry, enhancing the online shopping experience with realistic fittings. ✨💍
 
 ---
 
 ## 📖 About
 
-The **Virtual Ornaments Try-On** project is designed to bridge the gap between online jewelry shopping and the real-world fitting experience. By utilizing AR technology, users can visualize how different ornaments look on them before making a purchase. This enhances customer satisfaction and reduces the uncertainty of online jewelry shopping. 🛍️📸
+The **Virtual Ornaments Try-On** project enables users to upload an image of themselves and see how different ornaments fit on them. This eliminates the guesswork in online jewelry shopping by providing a realistic preview of how accessories will look before making a purchase. 🛍️📸
 
 Key aspects of the project:
 - 🏗 **Built with Django** – A robust and scalable web framework.
-- 🎨 **Augmented Reality (AR) Technology** – Enables realistic try-on experiences.
-- 🔄 **Real-Time Processing** – Provides instant feedback for users.
+- 🎭 **Image Processing-Based Fitting** – Ornaments are automatically positioned on the uploaded user image.
+- 🔄 **Realistic Overlay** – Ensures accurate placement of jewelry for an enhanced virtual try-on experience.
 
 ---
 
 ## 🚀 Features
 
-- 🎭 **Real-Time Jewelry Visualization** – See ornaments overlaid on your image.
-- 💎 **Wide Range of Accessories** – Try on earrings, necklaces, rings, and more.
-- 🖥️ **User-Friendly Interface** – Smooth and intuitive experience.
+- 📸 **Upload Your Image** – Users can upload a photo of themselves.
+- 💎 **Automatic Jewelry Fitting** – The system intelligently places ornaments onto the uploaded image.
+- 🖥️ **Wide Range of Accessories** – Try on necklaces, glasses, earrings, and more.
+- 🎭 **Accurate Placement** – Jewelry is positioned to fit naturally on the user’s image.
 
 ## 🎥 Demo
 
@@ -31,7 +32,7 @@ Key aspects of the project:
 
 ![Necklace Fit](media/result_36afcd43-cab4-42f1-b2cf-e90bbf81fcf6.jpg)
 
-📌 *Above: A preview of how the necklace fits virtually.*
+📌 *Above: A preview of how the necklace fits on an uploaded image.*
 
 ### 🕶️ Glasses Fit Demo
 
@@ -95,9 +96,10 @@ python manage.py runserver
 ## 📝 Usage
 
 1. 🌐 **Access the Application** – Open the provided URL in your web browser.
-2. 💍 **Select Jewelry** – Browse and choose an ornament to try on.
-3. 📷 **Enable Camera** – Allow camera access for AR visualization.
-4. 🎭 **Try It On** – View the selected jewelry overlaid onto your image in real-time.
+2. 📤 **Upload an Image** – Choose a photo of yourself.
+3. 💍 **Select Jewelry** – Browse and choose an ornament to try on.
+4. 🎭 **View the Result** – The jewelry will be automatically fitted onto your image.
+5. 📥 **Download** – Save your try-on image if desired.
 
 ---
 
@@ -107,7 +109,6 @@ We welcome contributions! To contribute:
 
 1. 🍴 **Fork the Repository** – Click the 'Fork' button at the top right.
 2. 📥 **Clone Your Fork:**
-
 
 3. 🌿 **Create a New Branch:**
 
@@ -132,12 +133,10 @@ git push origin feature/YourFeatureName
 
 ---
 
-
-
 ## 🎖️ Acknowledgements
 
 - 👏 **Contributors** – Thanks to everyone who has helped improve this project!
-- 🌎 **Resources** – Inspired by AR jewelry try-on applications and built with open-source technologies.
+- 🌎 **Resources** – Inspired by virtual try-on applications and built with open-source technologies.
 
 💙 *Happy coding and enjoy trying on virtual jewelry!* 🎭💍✨
 
