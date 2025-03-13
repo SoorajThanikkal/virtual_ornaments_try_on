@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% block title %}Try On - {{ product.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .preview-image {
+        width: 100%;
+        max-width: 600px;  /* Increased max-width */
+        height: auto;
+        margin: 20px 0;
+        border-radius: 5px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .upload-area {
+        border: 2px dashed #ccc;
+        padding: 30px;  /* Increased padding */
+        text-align: center;
+        cursor: pointer;
+        margin-bottom: 20px;
+        background-color: #f8f9fa;
+    }
+    .upload-area.dragover {
+        background-color: #e9ecef;
+        border-color: #ff6b6b;
+    }
+    .button-group {
+        margin-top: 15px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Try On: {{ product.name }}</h1>
+        <p>{{ product.description }}</p>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+            </div>
+            <div class="col-md-8">
+                <!-- Upload Area -->
+                <div class="upload-area" id="uploadArea">
+                    <p>Drag and drop your photo here or click to upload</p>
+                    <small class="text-muted text-danger">Note: Please upload a straight-looking image for better results</small>
+                    <input type="file" id="personImage" accept="image/*" style="display: none;">
+                    <button type="button" class="btn btn-primary mt-2" id="uploadButton">Select Image</button>
+                </div>
+
+                <!-- Preview of uploaded image -->
+                <div id="previewContainer" style="display: none;">
+                    <h4>Your Uploaded Photo:</h4>
+                    <img id="previewImage" class="preview-image" alt="Preview">
+                </div>
+
+                <!-- Loading Spinner -->
+                <div id="loader" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p>Processing your try-on...</p>
+                </div>
+
+                <!-- Result Container -->
+                <div id="resultContainer" style="display: none;">
+                    <h4>Try-On Result:</h4>
+                    <img id="resultImage" class="preview-image" alt="Try-on Result">
+                    <div class="button-group">
+                        <button class="btn btn-primary mt-3" id="tryAgain">Try Another Photo</button>
+                        <a href="#" class="btn btn-success mt-3 ms-2" id="downloadButton">Download Result</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    const uploadArea = $('#uploadArea');
+    const personImageInput = $('#personImage');
+    const previewContainer = $('#previewContainer');
+    const previewImage = $('#previewImage');
+    const loader = $('#loader');
+    const resultContainer = $('#resultContainer');
+    const resultImage = $('#resultImage');
+    const uploadButton = $('#uploadButton');
+    const downloadButton = $('#downloadButton');
+
+    // Handle click on upload button
+    uploadButton.on('click', function() {
+        personImageInput.click();
+    });
+
+    // Handle click on upload area
+    uploadArea.on('click', function(e) {
+        // Prevent triggering file input when clicking the button
+        if (e.target !== this) return;
+        personImageInput.click();
+    });
+
+    // Handle drag and drop
+    uploadArea.on('dragover', function(e) {
+        e.preventDefault();
+        $(this).addClass('dragover');
+    });
+
+    uploadArea.on('dragleave', function(e) {
+        e.preventDefault();
+        $(this).removeClass('dragover');
+    });
+
+    uploadArea.on('drop', function(e) {
+        e.preventDefault();
+        $(this).removeClass('dragover');
+        const files = e.originalEvent.dataTransfer.files;
+        if (files.length > 0) {
+            handleImageUpload(files[0]);
+        }
+    });
+
+    // Handle file input change
+    personImageInput.on('change', function(e) {
+        if (this.files && this.files[0]) {
+            handleImageUpload(this.files[0]);
+        }
+    });
+
+    // Handle try again button
+    $('#tryAgain').on('click', function() {
+        resultContainer.hide();
+        uploadArea.show();
+        previewContainer.hide();
+        personImageInput.val('');
+    });
+
+    // Handle download button
+    downloadButton.on('click', function(e) {
+        e.preventDefault();
+        const imageUrl = resultImage.attr('src');
+        const link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = 'try-on-result.jpg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+
+    function handleImageUpload(file) {
+        // Preview the uploaded image
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImage.attr('src', e.target.result);
+            previewContainer.show();
+            uploadArea.hide();
+            
+            // Process the try-on
+            processTryOn(file);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function processTryOn(file) {
+        const formData = new FormData();
+        formData.append('person_image', file);
+
+        loader.show();
+        
+        $.ajax({
+            url: '{% url "process_try_on" product.id %}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                loader.hide();
+                if (response.success) {
+                    resultImage.attr('src', response.result_image);
+                    downloadButton.attr('href', response.result_image);
+                    resultContainer.show();
+                } else {
+                    alert('Error: ' + response.message);
+                    uploadArea.show();
+                    previewContainer.hide();
+                }
+            },
+            error: function(xhr, status, error) {
+                loader.hide();
+                alert('An error occurred while processing the try-on. Please try again.');
+                uploadArea.show();
+                previewContainer.hide();
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - Virtual Try-On{% endblock %}
+
+{% block extra_css %}
+<style>
+    .product-details {
+        padding: 20px;
+    }
+    .price {
+        font-size: 1.5rem;
+        color: #28a745;
+        margin-bottom: 15px;
+    }
+    .ornament-type {
+        font-style: italic;
+        color: #666;
+        margin-bottom: 20px;
+    }
+    .description {
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+    </div>
+    <div class="col-md-6">
+        <div class="product-details">
+            <h1>{{ product.name }}</h1>
+            <p class="ornament-type">{{ product.get_ornament_type_display }}</p>
+            <p class="price">${{ product.price }}</p>
+            <div class="description">
+                {% if product.description %}
+                    <p>{{ product.description }}</p>
+                {% else %}
+                    <p>No description available for this product.</p>
+                {% endif %}
+            </div>
+            <a href="{% url 'try_on' product.id %}" class="btn try-on-btn btn-lg">Try On Now</a>
+            <a href="{% url 'product_list' %}" class="btn btn-secondary btn-lg ms-2">Back to Products</a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <hr>
+        <h4>Product Details</h4>
+        <ul class="list-unstyled">
+            <li><strong>Type:</strong> {{ product.get_ornament_type_display }}</li>
+            <li><strong>Price:</strong> ${{ product.price }}</li>
+            <li><strong>Added on:</strong> {{ product.created_at|date:"F d, Y" }}</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Add any additional JavaScript functionality here if needed
+});
+</script>
+{% endblock %}

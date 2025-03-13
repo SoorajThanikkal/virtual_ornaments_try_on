@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Virtual Try-On - Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center mb-4 p-5 bg-light rounded">
+    <h1 class="display-4">Welcome to Virtual Try-On</h1>
+    <p class="lead">Try our products virtually before you buy!</p>
+    <hr class="my-4">
+    <p>Explore our collection of glasses, necklaces, and earrings and see how they look on you.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'product_list' %}" role="button">Browse Products</a>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Glasses</h5>
+                <p class="card-text">Try on our stylish glasses collection.</p>
+                <a href="{% url 'product_list' %}?type=glasses" class="btn btn-outline-primary">View Glasses</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Necklaces</h5>
+                <p class="card-text">Discover elegant necklaces for every occasion.</p>
+                <a href="{% url 'product_list' %}?type=necklace" class="btn btn-outline-primary">View Necklaces</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Earrings</h5>
+                <p class="card-text">Find the perfect earrings to complement your style.</p>
+                <a href="{% url 'product_list' %}?type=earrings" class="btn btn-outline-primary">View Earrings</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
