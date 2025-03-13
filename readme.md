@@ -2,6 +2,19 @@
 
 Welcome to the **Virtual Ornaments Try-On** project! This application leverages augmented reality (AR) to allow users to virtually try on jewelry, enhancing the online shopping experience with real-time fittings. ✨💍
 
+---
+
+## 📖 About
+
+The **Virtual Ornaments Try-On** project is designed to bridge the gap between online jewelry shopping and the real-world fitting experience. By utilizing AR technology, users can visualize how different ornaments look on them before making a purchase. This enhances customer satisfaction and reduces the uncertainty of online jewelry shopping. 🛍️📸
+
+Key aspects of the project:
+- 🏗 **Built with Django** – A robust and scalable web framework.
+- 🎨 **Augmented Reality (AR) Technology** – Enables realistic try-on experiences.
+- 🔄 **Real-Time Processing** – Provides instant feedback for users.
+
+---
+
 ## 🚀 Features
 
 - 🎭 **Real-Time Jewelry Visualization** – See ornaments overlaid on your image.
@@ -94,6 +107,7 @@ We welcome contributions! To contribute:
 
 1. 🍴 **Fork the Repository** – Click the 'Fork' button at the top right.
 2. 📥 **Clone Your Fork:**
+
 
 3. 🌿 **Create a New Branch:**
 
